@@ -22,6 +22,10 @@ const CharacterSchema = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  weight: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   story: {
     type: DataTypes.TEXT,
     allowNull: false,
@@ -33,3 +37,17 @@ const CharacterSchema = {
     defaultValue: Sequelize.NOW,
   },
 };
+
+class Character extends Model {
+
+  static config(sequelize){
+    return {
+      sequelize,
+      tableName: CHARACTER_TABLE,
+      modelName: 'Character',
+      timestamps: false
+    }
+  }
+}
+
+module.exports = { Character, CharacterSchema, CHARACTER_TABLE }
