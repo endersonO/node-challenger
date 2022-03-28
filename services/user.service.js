@@ -1,4 +1,3 @@
-const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize')
 const bcrypt = require('bcrypt')
 
@@ -17,6 +16,13 @@ class UserServices {
         delete newUser.dataValues.createdAt;
         delete newUser.dataValues.recoveryToken;
         return newUser;
+    }
+
+    async findByEmail(email){
+        const user = await models.User.findOne({
+            where: { email }
+        });
+        return user;
     }
 }
 

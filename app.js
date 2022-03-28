@@ -11,7 +11,8 @@ const {
     ormErrorHandler
 } = require('./middlewares/error.handler')
 
-app.use(express.json())
+app.use(express.json());
+require('./utils/auth');
 app.use('/api-docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocs,{ swaggerOptions: { persistAuthorization: true } })
