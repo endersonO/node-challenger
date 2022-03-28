@@ -9,7 +9,7 @@
     "lint": "eslint",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "NODE_ENV=development sequelize-cli db:migrate",
-    "migrations:run:test": "sequelize-cli db:migrate --env test",
+    "migrations:run:test": "NODE_ENV=test sequelize-cli db:migrate --env test",
     "migrations:revert": "sequelize-cli db:migrate:undo",
     "migrations:revert:test": "sequelize-cli db:migrate:undo --env test",
     "migrations:revert:test:hard": "sequelize-cli db:migrate:undo:all --env test",
