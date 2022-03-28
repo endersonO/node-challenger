@@ -38,7 +38,7 @@ class Genre extends Model {
     return {
       sequelize,
       tableName: GENRE_TABLE,
-      modelName: "genre",
+      modelName: "Genre",
       timestamps: false,
     };
   }
