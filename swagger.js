@@ -10,8 +10,8 @@ const doc = {
     },
   },
   host: 'localhost:3000',
-  schemes: ['http'],
-  basePath: '/api/v1',
+  schemes: ['http'],/* 
+  basePath: '', */
   securityDefinitions: {
     Bearer: {
       type: 'apiKey',

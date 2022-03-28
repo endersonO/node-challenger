@@ -2,7 +2,7 @@ const app = require('../../app');
 const request = require('supertest');
 
 const api = request(app);
-const url_base = '';
+const url_base = '/auth/';
 
 const { models } = require('../../libs/sequelize');
 const bcrypt = require('bcrypt');
@@ -12,8 +12,7 @@ async function createData() {
 
   await models.User.create({
     email: "testing@test.com",
-    password: password,
-    role: "admin"
+    password: password
   });
 }
 
@@ -26,8 +25,7 @@ describe('user test', () => {
   let userId;
   const data = {
     "email": "test2@test.com",
-    "password": "passwordSuperSecurity123",
-    "role": "customer"
+    "password": "passwordSuperSecurity123"
   }
   const dataUpdate = {
     "email": "test3@test.com",
@@ -35,13 +33,12 @@ describe('user test', () => {
   }
   test('Create New User', async () => {
     const res = await api
-      .post(url_base + 'users/')
+      .post(url_base + 'register')
       .send(data);
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toStrictEqual({
       "email": data.email,
-      "role": data.role,
       "id": expect.any(Number)
     });
 

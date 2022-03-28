@@ -1,0 +1,62 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "My API Store demo",
+    "description": "Building a demo store portfolio",
+    "contact": {
+      "name": "Enderson Omana",
+      "email": "omana.endersonj@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Please enter a valid token to test the requests below..."
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Create a new user",
+        "parameters": [
+          {
+            "name": "Access Information",
+            "in": "body",
+            "description": "this required email and password",
+            "schema": {
+              "required": [
+                "User"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "example@mail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "ax12XSA&ads"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
