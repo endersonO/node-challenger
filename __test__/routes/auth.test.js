@@ -1,9 +1,4 @@
-const app = require('../../app');
-const request = require('supertest');
-
-const api = request(app);
-
-const { models } = require('../../libs/sequelize');
+const { api, models } = require('./index')
 
 beforeAll(async () => {
   await models.User.destroy({ where: { }, force: true})

@@ -1,9 +1,4 @@
-const app = require("../../app");
-const request = require("supertest");
-
-const api = request(app);
-
-const { models } = require("../../libs/sequelize");
+const { api, models } = require('./index')
 
 beforeAll(async () => {
   await models.User.destroy({ where: {}, force: true });
@@ -20,6 +15,12 @@ beforeAll(async () => {
     ratings: 5,
     genreId: genre.dataValues.id,
   });
+  const dataUser = {
+    email: "test2@test.com",
+    password: "passwordSuperSecurity123",
+  };
+  await api.post("/auth/register").send(dataUser);
+
 });
 
 describe("Character Test", () => {
