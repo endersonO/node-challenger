@@ -2,7 +2,6 @@ const app = require('../../app');
 const request = require('supertest');
 
 const api = request(app);
-const url_base = '/auth/';
 
 const { models } = require('../../libs/sequelize');
 
@@ -17,7 +16,7 @@ describe('user test', () => {
   }
   test('Create New User', async () => {
     const res = await api
-      .post(url_base + 'register')
+      .post('/auth/register')
       .send(data);
 
     expect(res.statusCode).toBe(201);
@@ -29,7 +28,7 @@ describe('user test', () => {
 
   test('login user', async () => {
     const res = await api
-      .post(url_base + 'login')
+      .post('/auth/login')
       .send(data);
 
     expect(res.statusCode).toBe(200);
