@@ -13,7 +13,7 @@ function setupModels(sequelize) {
 
   Genre.associate(sequelize.models);
   Film.associate(sequelize.models);
-  //Character.associate(sequelize.models);
+  Character.associate(sequelize.models);
 }
 
 module.exports = setupModels;
