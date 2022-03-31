@@ -69,7 +69,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.DataTypes.STRING,
-        unique: true,
         allowNull: false,
       },
       title: {
@@ -84,7 +83,6 @@ module.exports = {
         field: "genre_id",
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
-        unique: true,
         references: {
           model: GENRE_TABLE,
           key: "id",
@@ -97,7 +95,7 @@ module.exports = {
         type: Sequelize.DataTypes.DATE,
         field: "created_at",
         defaultValue: Sequelize.NOW,
-      }
+      },
     })
 
     await queryInterface.createTable(CHARACTER_TABLE,{

@@ -8,6 +8,7 @@ const dataUser = {
 
 beforeAll(async () => {
   await models.User.destroy({ where: {}, force: true });
+  await models.Movie.destroy({ where: {}, force: true });
   await models.Genre.destroy({ where: {}, force: true });
   await api.post("/auth/register").send(dataUser);
 

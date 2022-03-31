@@ -12,7 +12,6 @@ const MovieSchema = {
   },
   image: {
     type: DataTypes.STRING,
-    unique: true,
     allowNull: false,
   },
   title: {
@@ -27,7 +26,6 @@ const MovieSchema = {
     field: "genre_id",
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
     references: {
       model: GENRE_TABLE,
       key: "id",

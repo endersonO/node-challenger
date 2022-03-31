@@ -11,9 +11,13 @@ class GenreService {
   }
 
   async findById(id) {
-    return await models.Genre.findByPk(id, {
+    const genre = await models.Genre.findByPk(id, {
       attributes: { exclude: ["createdAt"] },
     });
+    if (!genre) {
+      throw boom.notFound("Genre not found");
+    }
+    return genre
   }
 
   async create(data) {
@@ -25,9 +29,6 @@ class GenreService {
 
   async update(id, changes) {
     const genre = await models.Genre.findByPk(id);
-    if (!genre) {
-      throw boom.notFound("Genre not found");
-    }
 
     const rta = await genre.update(changes);
     delete rta.dataValues.createdAt;
