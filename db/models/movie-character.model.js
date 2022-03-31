@@ -2,11 +2,11 @@ const { Model, DataTypes, Sequelize } = require("sequelize");
 
 const { CHARACTER_TABLE } = require("./character.model");
 
-const { FILM_TABLE } = require("./film.model");
+const { MOVIE_TABLE } = require("./movie.model");
 
-const FILM_CHARACTER_TABLE = "film_character";
+const MOVIE_CHARACTER_TABLE = "movie_character";
 
-const FilmCharacterSchema = {
+const MovieCharacterSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -19,12 +19,12 @@ const FilmCharacterSchema = {
     field: "created_at",
     defaultValue: Sequelize.NOW,
   },
-  filmId: {
-    field: "film_id",
+  movieId: {
+    field: "movie_id",
     allowNull: false,
     type: DataTypes.INTEGER,
     references: {
-      model: FILM_TABLE,
+      model: MOVIE_TABLE,
       key: "id",
     },
     onUpdate: "CASCADE",
@@ -43,15 +43,15 @@ const FilmCharacterSchema = {
   },
 };
 
-class FilmCharacter extends Model {
+class MovieCharacter extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: FILM_CHARACTER_TABLE,
-      modelName: 'FilmCharacter',
+      tableName: MOVIE_CHARACTER_TABLE,
+      modelName: 'MovieCharacter',
       timestamps: false
     };
   }
 }
 
-module.exports = { FilmCharacter, FilmCharacterSchema, FILM_CHARACTER_TABLE }
+module.exports = { MovieCharacter, MovieCharacterSchema, MOVIE_CHARACTER_TABLE }

@@ -1,9 +1,9 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
 const { GENRE_TABLE } = require("./genre.model");
 
-const FILM_TABLE = "film";
+const MOVIE_TABLE = "movie";
 
-const FilmSchema = {
+const MovieSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -43,12 +43,12 @@ const FilmSchema = {
   },
 };
 
-class Film extends Model {
+class Movie extends Model {
   static associate(models) {
     this.belongsToMany(models.Character, {
       as: "characters",
-      through: models.FilmCharacter,
-      foreignKey: "filmId",
+      through: models.MovieCharacter,
+      foreignKey: "movieId",
       otherKey: "characterId",
     });
 
@@ -58,11 +58,11 @@ class Film extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: FILM_TABLE,
-      modelName: "Film",
+      tableName: MOVIE_TABLE,
+      modelName: "Movie",
       timestamps: false,
     };
   }
 }
 
-module.exports = { FILM_TABLE, FilmSchema, Film };
+module.exports = { MOVIE_TABLE, MovieSchema, Movie };

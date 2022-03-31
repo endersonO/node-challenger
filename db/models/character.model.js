@@ -40,11 +40,11 @@ const CharacterSchema = {
 
 class Character extends Model {
   static associate(models){
-    this.belongsToMany(models.Film,{
-      as: "film",
-      through: models.FilmCharacter,
+    this.belongsToMany(models.Movie,{
+      as: "movie",
+      through: models.MovieCharacter,
       foreignKey: "characterId",
-      otherKey: "filmId"
+      otherKey: "movieId"
     })
   }
 

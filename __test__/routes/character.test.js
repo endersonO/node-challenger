@@ -3,13 +3,14 @@ const { api, models } = require('./index')
 beforeAll(async () => {
   await models.User.destroy({ where: {}, force: true });
   await models.Character.destroy({ where: {}, force: true });
-  await models.Film.destroy({ where: {}, force: true });
+  await models.Movie.destroy({ where: {}, force: true });
   await models.Genre.destroy({ where: {}, force: true });
+  
   const genre = await models.Genre.create({
     name: "animadas",
     image: "https://placeimg.com/640/480/people",
   });
-  const film = await models.Film.create({
+  const movie = await models.Movie.create({
     image: "https://placeimg.com/640/480/people",
     title: "animacion",
     ratings: 5,

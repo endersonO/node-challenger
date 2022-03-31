@@ -75,7 +75,6 @@ describe("Genre test", () => {
   });
 
   test("Genre get by id", async () => {
-    console.log("/genre/" + genreId.toString())
     const res = await api
       .get("/genre/" + genreId.toString())
       .set("Authorization", "Bearer " + session.body.token);

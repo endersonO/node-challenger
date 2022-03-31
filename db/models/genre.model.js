@@ -28,8 +28,8 @@ const GenreSchema = {
 
 class Genre extends Model {
   static associate(models) {
-    this.hasMany(models.Film, {
-      as: "film",
+    this.hasMany(models.Movie, {
+      as: "movie",
       foreignKey: "genreId",
     });
   }

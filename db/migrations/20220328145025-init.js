@@ -1,9 +1,9 @@
 "use strict";
 const { CHARACTER_TABLE } = require("./../models/character.model");
 const { USER_TABLE } = require("./../models/user.model");
-const { FILM_TABLE } = require("./../models/film.model");
+const { MOVIE_TABLE } = require("./../models/movie.model");
 const { GENRE_TABLE } = require("./../models/genre.model");
-const { FILM_CHARACTER_TABLE } = require("./../models/film-character.model")
+const { MOVIE_CHARACTER_TABLE } = require("./../models/movie-character.model")
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -60,7 +60,7 @@ module.exports = {
       }
     })
 
-    await queryInterface.createTable(FILM_TABLE, {
+    await queryInterface.createTable(MOVIE_TABLE, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -136,7 +136,7 @@ module.exports = {
       }
     })
 
-    await queryInterface.createTable(FILM_CHARACTER_TABLE, {
+    await queryInterface.createTable(MOVIE_CHARACTER_TABLE, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -149,12 +149,12 @@ module.exports = {
         field: "created_at",
         defaultValue: Sequelize.NOW,
       },
-      filmId: {
-        field: "film_id",
+      movieId: {
+        field: "movie_id",
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
         references: {
-          model: FILM_TABLE,
+          model: MOVIE_TABLE,
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -177,8 +177,8 @@ module.exports = {
   async down(queryInterface) {
     await queryInterface.dropTable(USER_TABLE);
     await queryInterface.dropTable(GENRE_TABLE);
-    await queryInterface.dropTable(FILM_TABLE);
+    await queryInterface.dropTable(MOVIE_TABLE);
     await queryInterface.dropTable(CHARACTER_TABLE);
-    await queryInterface.dropTable(FILM_CHARACTER_TABLE);
+    await queryInterface.dropTable(MOVIE_CHARACTER_TABLE);
   },
 };
