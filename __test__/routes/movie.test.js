@@ -104,10 +104,9 @@ describe("Movie test", () => {
 
   test("Get movie by Id", async () => {
     const res = await api
-      .get("/movies/"+ movieId.toString())
+      .get("/movies/" + movieId.toString())
       .set("Authorization", "Bearer " + session.body.token);
 
-      console.log("Get by id",res)
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual({
       id: expect.any(Number),
@@ -115,6 +114,35 @@ describe("Movie test", () => {
       image: dataMovie.image,
       ratings: dataMovie.ratings,
       genreId: dataMovie.genreId,
+    });
+  });
+
+  test("Edit movie Id", async () => {
+    const res = await api
+      .patch("/movies/" + movieId.toString())
+      .set("Authorization", "Bearer " + session.body.token)
+      .send({
+        ratings: 5
+      });
+      
+    expect(res.status).toBe(200);
+    expect(res.body).toStrictEqual({
+      id: expect.any(Number),
+      title: dataMovie.title.toLowerCase(),
+      image: dataMovie.image,
+      ratings: 5,
+      genreId: dataMovie.genreId,
+    });
+  });
+
+  test("Delete movie by Id", async () => {
+    const res = await api
+      .delete("/movies/" + movieId.toString())
+      .set("Authorization", "Bearer " + session.body.token);
+      
+    expect(res.status).toBe(200);
+    expect(res.body).toStrictEqual({
+      id: movieId.toString()
     });
   });
 });

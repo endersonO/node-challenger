@@ -12,4 +12,11 @@ const createMovieSchema = Joi.object({
     genreId: genreId.required(),
 })
 
-module.exports = { createMovieSchema }
+const updateMovieSchema = Joi.object({
+    title: title,
+    image: image,
+    ratings: ratings,
+    genreId: genreId,
+})
+
+module.exports = { createMovieSchema, updateMovieSchema }

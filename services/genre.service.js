@@ -29,7 +29,9 @@ class GenreService {
 
   async update(id, changes) {
     const genre = await models.Genre.findByPk(id);
-
+    if (!genre) {
+      throw boom.notFound("Genre not found");
+    }
     const rta = await genre.update(changes);
     delete rta.dataValues.createdAt;
     return rta;

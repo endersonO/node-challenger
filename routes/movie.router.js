@@ -3,7 +3,10 @@ const router = express.Router();
 const passport = require("passport");
 
 const validatorHandler = require("../middlewares/validator.handler");
-const { createMovieSchema } = require('../schemas/movie.schema');
+const {
+  createMovieSchema,
+  updateMovieSchema,
+} = require("../schemas/movie.schema");
 
 const MovieService = require("../services/movie.service");
 const service = new MovieService();
@@ -42,7 +45,7 @@ router.get(
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  validatorHandler(createMovieSchema, 'body'),
+  validatorHandler(createMovieSchema, "body"),
   async (req, res, next) => {
     /* // #swagger.tags = ['movie']
     #swagger.description = "Create movie"
@@ -68,6 +71,48 @@ router.post(
       const body = req.body;
       body.title = body.title.toLowerCase();
       res.status(201).json(await service.create(body));
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.patch(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  validatorHandler(updateMovieSchema, "body"),
+  async (req, res, next) => {
+    /* // #swagger.tags = ['movie']
+    #swagger.description = "Get movies by id"
+    */
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      if (body.title !== undefined) {
+        body.title = body.title.toLowerCase();
+      }
+
+      const updateMovie = await service.update(id, body);
+      delete updateMovie.dataValues.createdAt;
+      res.status(200).json(updateMovie);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    /* // #swagger.tags = ['movie']
+    #swagger.description = "Get movies by id"
+    */
+    try {
+      const { id } = req.params;
+
+      res.status(200).json({"id": await service.delete(id)});
     } catch (error) {
       next(error);
     }

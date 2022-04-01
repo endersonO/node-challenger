@@ -18,7 +18,7 @@ class MovieService {
     if(!movie){
         throw boom.notFound('Movie not found');
       }
-    console.log("movie service", movie)
+
     return movie;
   }
 
@@ -27,6 +27,20 @@ class MovieService {
 
     delete newMovie.dataValues.createdAt;
     return newMovie;
+  }
+
+  async update(id, changes) {
+    const movie = await models.Movie.findByPk(id);
+    const editMovie = movie.update(changes);
+  
+    return editMovie;
+  }
+
+  async delete(id){
+    const movie = await models.Movie.findByPk(id);
+    movie.destroy()
+
+    return id
   }
 }
 
