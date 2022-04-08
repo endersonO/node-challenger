@@ -52,6 +52,370 @@
           }
         ],
         "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "This method permit user login, answer token identification",
+        "parameters": [
+          {
+            "name": "Access Information",
+            "in": "body",
+            "description": "this required email and password",
+            "schema": {
+              "required": [
+                "User"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "example@mail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "ax12XSA&ads"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/characters/": {
+      "get": {
+        "tags": [
+          "Character"
+        ],
+        "description": "Get all characters",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Character"
+        ],
+        "description": "Create a new character",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": [
+          "Character"
+        ],
+        "description": "Get character By Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Character"
+        ],
+        "description": "edit character",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Character"
+        ],
+        "description": "Delete character",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/genre/": {
+      "get": {
+        "tags": [
+          "Genre"
+        ],
+        "description": "Get all genre",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Genre"
+        ],
+        "description": "Create a new user",
+        "parameters": [
+          {
+            "name": "Access Information",
+            "in": "body",
+            "description": "this required email and password",
+            "schema": {
+              "required": [
+                "User"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "animation"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://placeimg.com/640/480/people"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/genre/{id}": {
+      "get": {
+        "tags": [
+          "Genre"
+        ],
+        "description": "Get genre by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Genre"
+        ],
+        "description": "update fields of genre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Access Information",
+            "in": "body",
+            "description": "this required email and password",
+            "schema": {
+              "required": [
+                "User"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "animation"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://placeimg.com/640/480/people"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Genre"
+        ],
+        "description": "Delete genre field",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/movies/": {
+      "get": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get all movies",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Create movie",
+        "parameters": [
+          {
+            "name": "Movie information",
+            "in": "body",
+            "description": "this required email and password",
+            "schema": {
+              "required": [
+                "User"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "animation"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://placeimg.com/640/480/people"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get movies by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get movies by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get movies by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
           "200": {
             "description": "OK"
           }

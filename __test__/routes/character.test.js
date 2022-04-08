@@ -38,6 +38,7 @@ describe("Character Test", () => {
       "Woody is Andy's toy, when andy doesn't see start amazing adventures",
   };
   let session;
+  let characterId;
 
   test("Don't create Character", async () => {
     const res = await api.post("/characters").send(dataCharacter);
@@ -70,11 +71,90 @@ describe("Character Test", () => {
     expect(res.status).toBe(401);
     expect(res.body).toStrictEqual({
       id: expect.any(Number),
-      name: dataCharacter.name.toLowerCase(),
+      name: dataCharacter.name,
       image: dataCharacter.image,
       age: dataCharacter.age,
       weight: dataCharacter.weight,
-      story: dataCharacter.story.toLowerCase(),
+      story: dataCharacter.story,
+    });
+    characterId = res.body.id;
+  });
+
+  test("Get all Character", async () => {
+    await api
+      .post("/characters")
+      .set("Authorization", "Bearer " + session.body.token)
+      .send({
+        name: "Buzz",
+        image: "https://placeimg.com/640/480/people",
+        age: 20,
+        weight: 20,
+        story:
+          "Buzz is Andy's toy, when andy doesn't see start amazing adventures",
+      });
+
+    const res = await api
+      .get("/characters")
+      .set("Authorization", "Bearer " + session.body.token);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(2);
+    expect(res.body[0]).toStrictEqual({
+      id: expect.any(Number),
+      name: dataCharacter.name,
+      image: dataCharacter.image,
+      age: dataCharacter.age,
+      weight: dataCharacter.weight,
+      story: dataCharacter.story,
+    });
+  });
+
+  test("Get Character By id", async () => {
+    const res = await api
+      .get("/characters/" + characterId.toString())
+      .set("Authorization", "Bearer " + session.body.token);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toStrictEqual({
+      id: characterId,
+      name: dataCharacter.name,
+      image: dataCharacter.image,
+      age: dataCharacter.age,
+      weight: dataCharacter.weight,
+      story: dataCharacter.story,
+    });
+  });
+
+  test("Edit Character", async () => {
+    const res = await api
+      .patch("/characters/" + characterId.toString())
+      .set("Authorization", "Bearer " + session.body.token)
+      .send({
+        age: 16,
+        weight: 10,
+        story:
+          "Woody is Andy's toy, when andy doesn't see start amazing adventures, when he figth with buzz",
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body).toStrictEqual({
+      id: characterId,
+      name: dataCharacter.name,
+      image: dataCharacter.image,
+      age: 16,
+      weight: 10,
+      story: "Woody is Andy's toy, when andy doesn't see start amazing adventures, when he figth with buzz",
+    });
+  });
+
+  test("delete Character", async () => {
+    const res = await api
+      .delete("/characters/" + characterId.toString())
+      .set("Authorization", "Bearer " + session.body.token);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toStrictEqual({
+      id: characterId.toString()
     });
   });
 });

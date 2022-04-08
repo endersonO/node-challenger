@@ -14,4 +14,12 @@ const createCharacterSchema = Joi.object({
     story: story.required()
 })
 
-module.exports = { createCharacterSchema }
+const editCharacterSchema = Joi.object({
+    name: name,
+    image: image,
+    age: age,
+    weight: weight,
+    story: story
+})
+
+module.exports = { createCharacterSchema, editCharacterSchema }
