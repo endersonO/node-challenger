@@ -13,6 +13,11 @@ class GenreService {
   async findById(id) {
     const genre = await models.Genre.findByPk(id, {
       attributes: { exclude: ["createdAt"] },
+      include: [{
+        model: models.Movie,
+        as: 'movies',
+        attributes: { exclude: ["createdAt"] }
+      }]
     });
     if (!genre) {
       throw boom.notFound("Genre not found");

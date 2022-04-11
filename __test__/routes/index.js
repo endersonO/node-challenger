@@ -5,4 +5,4 @@ const api = request(app);
 
 const { models } = require("../../libs/sequelize");
 
-module.exports = { api, models, request }
+module.exports = { api, models }

@@ -22,6 +22,16 @@ const MovieSchema = {
     allowNull: false,
     type: DataTypes.INTEGER,
   },
+  createdDate:{
+    allowNull: false,
+    type: DataTypes.DATE,
+    field: "created_date"
+  },
+  movieSerie : {
+    allowNull: false,
+    type: DataTypes.STRING,
+    field: "movie_serie"
+  },
   genreId: {
     field: "genre_id",
     allowNull: false,

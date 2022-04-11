@@ -79,6 +79,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
       },
+      createdDate:{
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        field: "created_date"
+      },
+      movieSerie : {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING,
+        field: "movie_serie"
+      },
       genreId: {
         field: "genre_id",
         allowNull: false,

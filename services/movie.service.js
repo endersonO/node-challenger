@@ -6,6 +6,12 @@ class MovieService {
     const allMovies = await models.Movie.findAll({
       attributes: { exclude: ["createdAt"] },
       order: [["id", "ASC"]],
+      include: [{
+        model: models.Genre,
+        as: 'genre',
+        attributes: { exclude: ["createdAt"] }
+      }
+    ]
     });
 
     return allMovies;
@@ -13,7 +19,18 @@ class MovieService {
 
   async findById(id) {
     const movie = await models.Movie.findByPk(id,{
-      attributes: { exclude: ["createdAt"] }
+      attributes: { exclude: ["createdAt"] },
+      include: [{
+        model: models.Genre,
+        as: 'genre',
+        attributes: { exclude: ["createdAt"] }
+      },
+      {
+        model: models.Character,
+        as: 'characters',
+        attributes: { exclude: ["createdAt"] }
+      }
+    ]
     });
     if(!movie){
         throw boom.notFound('Movie not found');

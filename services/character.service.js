@@ -12,14 +12,30 @@ class CharacterServices {
     async findById(id){
         return await models.Character.findByPk(id, {
             attributes: { exclude: ["createdAt"] },
+            include: [{
+                model: models.Movie,
+                as: 'movies',
+                attributes: { exclude: ["createdAt"] }
+              }]
         });
     }
 
     async create(data){
+        const movies = data.movies;
+        delete data.movies;
         const newCharacter = await models.Character.create(data);
 
+        //const id = newCharacter.dataValues.id
+        await this.addMovie(movies, newCharacter.dataValues.id);
         delete newCharacter.dataValues.createdAt;
         return newCharacter;
+    }
+
+    async addMovie(movies, id){
+        await models.MovieCharacter.create({
+            movieId: movies[0],
+            characterId: id
+        })
     }
 
     async update(id, changes){

@@ -79,7 +79,7 @@ router.post(
     try {
       const body = req.body;
 
-      res.status(401).json(await service.create(body));
+      res.status(201).json(await service.create(body));
     } catch (error) {
       next(error);
     }

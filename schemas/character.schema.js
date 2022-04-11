@@ -5,13 +5,15 @@ const image = Joi.string().uri();
 const age = Joi.number().integer().min(1);
 const weight = Joi.number().integer().min(1);
 const story = Joi.string().min(10);
+const movies = Joi.array().items(Joi.number().integer());
 
 const createCharacterSchema = Joi.object({
     name: name.required(),
     image: image.required(),
     age: age.required(),
     weight: weight.required(),
-    story: story.required()
+    story: story.required(),
+    movies: movies.required(),
 })
 
 const editCharacterSchema = Joi.object({
@@ -19,7 +21,8 @@ const editCharacterSchema = Joi.object({
     image: image,
     age: age,
     weight: weight,
-    story: story
+    story: story,
+    movies: movies    
 })
 
 module.exports = { createCharacterSchema, editCharacterSchema }
