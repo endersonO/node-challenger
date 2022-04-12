@@ -16,7 +16,7 @@ router.get(
     #swagger.description = "Get all characters"
     */
     try {
-      res.status(200).json(await service.findAll());
+      res.status(200).json(await service.findAll(req.query));
     } catch (error) {
       next(error);
     }

@@ -1,12 +1,36 @@
 const { models } = require("../libs/sequelize");
+const { Op } = require("sequelize");
 
 class CharacterServices {
 
-    async findAll(){
-        return await models.Character.findAll({
-            attributes: { exclude: ["createdAt"] },
+    async findAll(query){
+        if(query.age == undefined || query.age == '') query.age=0;
+        if(query.movies == undefined || query.movies == '') query.movies=false;
+        const characters = await models.Character.findAll({
+            attributes: [
+                'name',
+                'image',
+            ] ,
             order: [["id", "ASC"]],
+            where: { 
+                name: {
+                    [Op.like]: '%' + query.name + '%' 
+                },
+                age: {
+                    [Op.gte]: query.age
+                }
+            },
+            include: query.movies ? [{
+                model: models.Movie,
+                as: 'movies',
+                where:  {
+                    id: query.movies
+                },
+                attributes: []
+              }] : null
           });
+
+        return characters;
     }
 
     async findById(id){
