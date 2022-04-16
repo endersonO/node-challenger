@@ -1,5 +1,6 @@
 const { models } = require("../libs/sequelize");
 const { Op } = require("sequelize");
+const boom = require('@hapi/boom');
 
 class CharacterServices {
 
@@ -83,17 +84,17 @@ class CharacterServices {
 
     async update(id, changes){
         const movies = changes.movies;
-        delete data.movies;
+        delete changes.movies;
         const character = await models.Character.findByPk(id);
 
         if(!character){
             throw boom.notFound("Character not found");
         }
 
-        const rta = await character.update(changes);
-        await this.addMovie(movies, newCharacter.dataValues.id);
-        delete rta.dataValues.createdAt;
-        return rta;
+        await character.update(changes);
+        if(movies!= undefined && movies.length != 0)
+            await this.addMovie(movies, id);
+        return await this.findById(id);
     }
 
     async delete(id){
