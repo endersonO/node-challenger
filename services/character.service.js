@@ -6,6 +6,22 @@ class CharacterServices {
     async findAll(query){
         if(query.age == undefined || query.age == '') query.age=0;
         if(query.movies == undefined || query.movies == '') query.movies=false;
+        if(query.name == undefined) query.name='';
+
+        let minWeight, maxWeight;
+        if(query.weight == undefined || query.weight == ''){ 
+            minWeight=0;
+            maxWeight=1000;
+        } else {
+            if(query.maxWeight == undefined || query.maxWeight == ''){
+                minWeight = parseInt(query.weight) - 5;
+                maxWeight = parseInt(query.weight) + 5;
+            } else {
+                minWeight = query.weight;
+                maxWeight = query.maxWeight
+            }
+        }
+
         const characters = await models.Character.findAll({
             attributes: [
                 'name',
@@ -18,6 +34,9 @@ class CharacterServices {
                 },
                 age: {
                     [Op.gte]: query.age
+                },
+                weight: {
+                    [Op.between]: [minWeight, maxWeight]
                 }
             },
             include: query.movies ? [{
@@ -63,6 +82,8 @@ class CharacterServices {
     }
 
     async update(id, changes){
+        const movies = changes.movies;
+        delete data.movies;
         const character = await models.Character.findByPk(id);
 
         if(!character){
@@ -70,6 +91,7 @@ class CharacterServices {
         }
 
         const rta = await character.update(changes);
+        await this.addMovie(movies, newCharacter.dataValues.id);
         delete rta.dataValues.createdAt;
         return rta;
     }

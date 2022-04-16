@@ -1,11 +1,13 @@
 const Joi = require('joi');
 
-const name = Joi.string().min(3);
+const id = Joi.number().integer();
+const name = Joi.string();
 const image = Joi.string().uri();
 const age = Joi.number().integer().min(1);
 const weight = Joi.number().integer().min(1);
 const story = Joi.string().min(10);
 const movies = Joi.array().items(Joi.number().integer());
+const movieId = Joi.number().integer();
 
 const createCharacterSchema = Joi.object({
     name: name.required(),
@@ -25,4 +27,16 @@ const editCharacterSchema = Joi.object({
     movies: movies    
 })
 
-module.exports = { createCharacterSchema, editCharacterSchema }
+const idCharacterSchema = Joi.object({
+    id: id.required()
+})
+
+const getCharacterSchema = Joi.object({
+    name: name,
+    movies: movieId,
+    age: age,
+    weight: weight,
+    maxWeight: weight
+})
+
+module.exports = { getCharacterSchema, createCharacterSchema, editCharacterSchema, idCharacterSchema }

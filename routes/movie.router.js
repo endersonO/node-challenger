@@ -6,6 +6,8 @@ const validatorHandler = require("../middlewares/validator.handler");
 const {
   createMovieSchema,
   updateMovieSchema,
+  idMovieSchema,
+  getMovieSchema
 } = require("../schemas/movie.schema");
 
 const MovieService = require("../services/movie.service");
@@ -14,12 +16,13 @@ const service = new MovieService();
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(getMovieSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['movie']
     #swagger.description = "Get all movies"
     */
     try {
-      res.status(200).json(await service.findAll());
+      res.status(200).json(await service.findAll(req.query));
     } catch (error) {
       next(error);
     }
@@ -29,6 +32,7 @@ router.get(
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(idMovieSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['movie']
     #swagger.description = "Get movies by id"
@@ -81,6 +85,7 @@ router.patch(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   validatorHandler(updateMovieSchema, "body"),
+  validatorHandler(idMovieSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['movie']
     #swagger.description = "Get movies by id"
@@ -105,6 +110,7 @@ router.patch(
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(idMovieSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['movie']
     #swagger.description = "Get movies by id"

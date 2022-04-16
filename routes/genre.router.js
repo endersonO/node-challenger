@@ -83,7 +83,8 @@ router.post(
 router.patch(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  validatorHandler(updateGenreSchema, "body"), 
+  validatorHandler(updateGenreSchema, "body"),
+  validatorHandler(getGenreSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['Genre']
     #swagger.description = "update fields of genre"
@@ -119,6 +120,7 @@ router.patch(
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(getGenreSchema, "params"),
   async (req, res, next) => {
     /* // #swagger.tags = ['Genre']
     #swagger.description = "Delete genre field"*/

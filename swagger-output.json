@@ -14,14 +14,6 @@
   "schemes": [
     "http"
   ],
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "Authorization",
-      "description": "Please enter a valid token to test the requests below..."
-    }
-  },
   "paths": {
     "/auth/register": {
       "post": {
@@ -100,11 +92,8 @@
         ],
         "description": "Get all characters",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "responses": {},
+        "security": []
       },
       "post": {
         "tags": [
@@ -113,8 +102,8 @@
         "description": "Create a new character",
         "parameters": [],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -137,7 +126,18 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+              }
+            ]
+          }
+        ]
       },
       "patch": {
         "tags": [
@@ -420,6 +420,14 @@
             "description": "OK"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }

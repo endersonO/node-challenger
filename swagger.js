@@ -12,14 +12,14 @@ const doc = {
   host: 'localhost:3000',
   schemes: ['http'],/* 
   basePath: '', */
-  securityDefinitions: {
-    Bearer: {
-      type: 'apiKey',
-      in: 'header', // can be "header", "query" or "cookie"
-      name: 'Authorization', // name of the header, query parameter or cookie
-      description: 'Please enter a valid token to test the requests below...',
-    },
-  },
+  components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: 'http',
+        scheme: 'bearer'
+      }
+    }
+  }
 };
 
 const outputFile = './swagger-output.json';

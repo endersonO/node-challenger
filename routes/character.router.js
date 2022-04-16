@@ -3,7 +3,12 @@ const passport = require("passport");
 const router = express.Router();
 
 const validatorHandler = require('./../middlewares/validator.handler');
-const { createCharacterSchema, editCharacterSchema } = require('../schemas/character.schema');
+const { 
+  getCharacterSchema,
+  createCharacterSchema, 
+  editCharacterSchema, 
+  idCharacterSchema 
+} = require('../schemas/character.schema');
 
 const CharacterServices = require('../services/character.service');
 const service = new CharacterServices();
@@ -11,11 +16,16 @@ const service = new CharacterServices();
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(getCharacterSchema, 'params'),
   async (req, res, next) => {
     /* // #swagger.tags = ['Character']
     #swagger.description = "Get all characters"
+    #swagger.security = [{
+      bearerAuth": []
+      }] 
     */
     try {
+      console.log("characters")
       res.status(200).json(await service.findAll(req.query));
     } catch (error) {
       next(error);
@@ -26,9 +36,17 @@ router.get(
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(idCharacterSchema, 'params'),
   async (req, res, next) => {
     /* // #swagger.tags = ['Character']
     #swagger.description = "Get character By Id"
+    #swagger.security = [{
+      bearerAuth: [{
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
+      }]
+    }]
     */
     try {
       const { id } = req.params;
@@ -90,6 +108,7 @@ router.patch(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   validatorHandler(editCharacterSchema, 'body'),
+  validatorHandler(idCharacterSchema, 'params'),
   async (req, res, next) => {
     /* // #swagger.tags = ['Character']
     #swagger.description = "edit character"
@@ -137,6 +156,7 @@ router.patch(
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  validatorHandler(idCharacterSchema, 'params'),
   async (req, res, next) => {
     /* // #swagger.tags = ['Character']
     #swagger.description = "Delete character"

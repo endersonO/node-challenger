@@ -1,17 +1,30 @@
 const { models } = require("../libs/sequelize");
 const boom = require('@hapi/boom');
+const { Op } = require("sequelize");
 
 class MovieService {
-  async findAll() {
+  async findAll(query) {
+    if(query.title == undefined) query.title='';
+    if(query.genre == undefined || query.genre == '') query.genre=false;
+    if(query.order == undefined || query.order == '') query.order='ASC';
+    if(query.order != 'ASC' && query.order != 'DESC') throw boom.badRequest('Not permit');
+
     const allMovies = await models.Movie.findAll({
-      attributes: { exclude: ["createdAt"] },
-      order: [["id", "ASC"]],
-      include: [{
+      attributes: ['image', 'title', 'createdDate'],
+      order: [["id", query.order ]],
+      where: {
+        title: {
+          [Op.like]: '%' + query.title + '%'
+        },
+      },
+      include: query.genre ? [{
         model: models.Genre,
         as: 'genre',
-        attributes: { exclude: ["createdAt"] }
-      }
-    ]
+        attributes: [],
+        where: {
+          id: query.genre
+        }
+      }] : null 
     });
 
     return allMovies;

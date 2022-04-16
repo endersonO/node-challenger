@@ -3,6 +3,7 @@ const app = express();
 const routerApi = require('./routes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./swagger-output.json');
+const { doc_json } = require('./documentation')
 
 const {
     logErrors,
@@ -15,7 +16,7 @@ app.use(express.json());
 require('./utils/auth');
 app.use('/api-docs',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocs,{ swaggerOptions: { persistAuthorization: true } })
+  swaggerUi.setup(doc_json)
 );
 routerApi(app);
 
