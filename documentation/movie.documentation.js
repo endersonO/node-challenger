@@ -1,26 +1,26 @@
 const endpoints = {
-    '/genre/': {
+    '/movies/': {
         get: {
             security: [{
                 BearerAuth: []
             }],
-            tags: ['Genre'],
-            summary: "Get all genre",
+            tags: ['Movie'],
+            summary: "Get all movie",
             description: '',
             responses: {
                 200: {
-                    description: 'Get all genre'
+                    description: 'Get all movie'
                 }
             }
         }
     },
-    '/genre/{identification}/': {
+    '/movies/{identification}/': {
         get: {
             security: [{
                 BearerAuth: []
             }],
-            tags: ['Genre'],
-            summary: "Get genre by ID",
+            tags: ['Movie'],
+            summary: "Get movie by ID",
             description: '',
             parameters: [
                 {
@@ -35,42 +35,42 @@ const endpoints = {
             ],
             responses: {
                 200: {
-                    description: 'genre information'
+                    description: 'movie information'
                 }
             }
         }
     },
-    '/genre': {
+    '/movies': {
         post: {
             security: [{
                 BearerAuth: []
             }],
-            tags: ['Genre'],
-            summary: "Create genre",
+            tags: ['Movie'],
+            summary: "Create movie",
             description: '',
             requestBody: {
                 content: {
                     'application/json': {
                       schema: {
-                        $ref: '#/components/schemas/createGenre'
+                        $ref: '#/components/schemas/createMovie'
                       }
                     }
                 }
             },
             responses: {
                 201: {
-                    description: 'Genre were create'
+                    description: 'Movie were create'
                 }
             }
         }
     },
-    '/genre/{id}/': {
+    '/movies/{id}/': {
         patch: {
             security: [{
                 BearerAuth: []
             }],
-            tags: ['Genre'],
-            summary: 'edit Genre',
+            tags: ['Movie'],
+            summary: 'edit movie',
             description: '',
             parameters: [
                 {
@@ -87,25 +87,25 @@ const endpoints = {
                 content: {
                     'application/json': {
                       schema: {
-                        $ref: '#/components/schemas/editGenre'
+                        $ref: '#/components/schemas/editMovie'
                       }
                     }
                 }
             },
             responses: {
                 200: {
-                    description: 'Genre Edit'
+                    description: 'User login'
                 }
             }
         }
     },
-    '/genre/{id}': {
+    '/movies/{id}': {
         delete: {
             security: [{
                 BearerAuth: []
             }],
-            tags: ['Genre'],
-            summary: 'Delete Genre',
+            tags: ['Movie'],
+            summary: 'Delete Movie',
             description: '',
             parameters: [
                 {
@@ -120,7 +120,7 @@ const endpoints = {
             ],
             responses: {
                 200: {
-                    description: 'Genre Delete'
+                    description: 'User login'
                 }
             }
         }
@@ -128,10 +128,10 @@ const endpoints = {
 }
 
 const schemas = {
-    createGenre: {
+    createMovie: {
         type: 'object',
         properties: {
-            name: {
+            title: {
                 type: "string",
                 description: 'Character name',
                 default: "animation"
@@ -143,7 +143,7 @@ const schemas = {
             }
         }
     },
-    editGenre: {
+    editMovie: {
         type: 'object',
         properties: {
             name: {
@@ -160,9 +160,9 @@ const schemas = {
     }
 }
 
-const genreDoc = {
+const MovieDoc = {
     endpoints,
     schemas
 }
 
-module.exports = genreDoc
+module.exports = MovieDoc

@@ -4,6 +4,7 @@ import userAuthDoc from './userAuth/documentation/userAuth.documentation' */
 const authDoc = require('./documentation/auth.documentation')
 const characterDoc = require('./documentation/character.documentation')
 const genreDoc = require('./documentation/genre.documentation')
+const movieDoc = require('./documentation/movie.documentation')
 
 const doc_json = {
     openapi: '3.0.1',
@@ -28,13 +29,15 @@ const doc_json = {
     paths: {
       ...authDoc.endpoints,
       ...characterDoc.endpoints,
-      ...genreDoc.endpoints
+      ...genreDoc.endpoints,
+      ...movieDoc.endpoints
     },
     components: {
       schemas: {
         ...authDoc.schemas,
         ...characterDoc.schemas,
-        ...genreDoc.schemas
+        ...genreDoc.schemas,
+        ...movieDoc.schemas
       },
       securitySchemes: {
         BearerAuth: {
