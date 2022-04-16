@@ -44,6 +44,7 @@ class GenreService {
 
   async delete(id) {
     const genre = await models.Genre.findByPk(id);
+    if(!genre) throw boom.notFound("Genre not found");
     await genre.destroy();
     return { id };
   }

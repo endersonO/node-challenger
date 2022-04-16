@@ -243,21 +243,6 @@ const schemas = {
                 }
             } 
         }
-    },
-    get: {
-        type: 'object',
-        properties: {
-            email: {
-                type: "string",
-                description: 'User Email',
-                default: "example1@mail.com"
-            },
-            password:  {
-                type: "string",
-                description: 'User Password',
-                default: "ax12XSA&ads"
-            }
-        }
     }
 }
 

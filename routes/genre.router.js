@@ -16,9 +16,6 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Genre']
-    #swagger.description = "Get all genre"
-    */
     try {
       res.status(200).json(await service.findAll());
     } catch (error) {
@@ -32,9 +29,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(getGenreSchema, "params"),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Genre']
-    #swagger.description = "Get genre by id"
-    */
     try {
       const { id } = req.params;
       res.status(200).json(await service.findById(id));
@@ -49,26 +43,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(createGenreSchema, "body"),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Genre']
-    #swagger.description = "Create a new user"
-    #swagger.parameters['Access Information'] = {
-        in: 'body',
-        description: 'this required email and password',
-        '@schema': {
-          "required": ["User"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "animation"
-            },
-            "image":  {
-                "type": "string",
-                "example": "https://placeimg.com/640/480/people"
-            },
-          }
-        }
-      }
-    */
     try {
       const body = req.body;
       body.name = body.name.toLowerCase();
@@ -86,26 +60,6 @@ router.patch(
   validatorHandler(updateGenreSchema, "body"),
   validatorHandler(getGenreSchema, "params"),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Genre']
-    #swagger.description = "update fields of genre"
-    #swagger.parameters['Access Information'] = {
-        in: 'body',
-        description: 'this required email and password',
-        '@schema': {
-          "required": ["User"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "animation"
-            },
-            "image":  {
-                "type": "string",
-                "example": "https://placeimg.com/640/480/people"
-            },
-          }
-        }
-      }
-    */
     try {
       const { id } = req.params;
       const body = req.body;
@@ -122,8 +76,6 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(getGenreSchema, "params"),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Genre']
-    #swagger.description = "Delete genre field"*/
       try {
         const { id } = req.params;
   

@@ -3,6 +3,7 @@ import groupDoc from './grupos/documentation/group.documentation'
 import userAuthDoc from './userAuth/documentation/userAuth.documentation' */
 const authDoc = require('./documentation/auth.documentation')
 const characterDoc = require('./documentation/character.documentation')
+const genreDoc = require('./documentation/genre.documentation')
 
 const doc_json = {
     openapi: '3.0.1',
@@ -26,12 +27,14 @@ const doc_json = {
     ],
     paths: {
       ...authDoc.endpoints,
-      ...characterDoc.endpoints
+      ...characterDoc.endpoints,
+      ...genreDoc.endpoints
     },
     components: {
       schemas: {
         ...authDoc.schemas,
-        ...characterDoc.schemas
+        ...characterDoc.schemas,
+        ...genreDoc.schemas
       },
       securitySchemes: {
         BearerAuth: {

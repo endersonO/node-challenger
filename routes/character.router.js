@@ -18,12 +18,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(getCharacterSchema, 'params'),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Character']
-    #swagger.description = "Get all characters"
-    #swagger.security = [{
-      bearerAuth": []
-      }] 
-    */
     try {
       console.log("characters")
       res.status(200).json(await service.findAll(req.query));
@@ -38,16 +32,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(idCharacterSchema, 'params'),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Character']
-    #swagger.description = "Get character By Id"
-    #swagger.security = [{
-      bearerAuth: [{
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT'
-      }]
-    }]
-    */
     try {
       const { id } = req.params;
       res.status(200).json(await service.findById(id));
@@ -62,38 +46,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(createCharacterSchema, 'body'),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Character']
-    #swagger.description = "Create a new character"
-    #swagger.parameters['Access Information'] = {
-        in: 'body',
-        description: 'this required character data',
-        '@schema': {
-          "required": ["User"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "woody"
-            },
-            "image":  {
-                "type": "string",
-                "example": "https://placeimg.com/640/480/people"
-            },
-            "age": {
-              "type": "number",
-              "example": "10"
-            },
-            "weight":  {
-              "type": "number",
-              "example": "10"
-            },
-            "story":  {
-              "type": "string",
-              "example": "Woody is Andy's toy, when andy doesn't see start amazing adventures"
-            },
-          }
-        }
-      }
-    */
     try {
       const body = req.body;
 
@@ -158,9 +110,6 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   validatorHandler(idCharacterSchema, 'params'),
   async (req, res, next) => {
-    /* // #swagger.tags = ['Character']
-    #swagger.description = "Delete character"
-    */
     try {
       const { id } = req.params;
 
