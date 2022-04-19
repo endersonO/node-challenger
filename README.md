@@ -28,6 +28,11 @@ Where do you defined:
 
 This project brings you a docker file to build postgres database including Pgadmin to connect, if you already have a postgress database, you don't need to build it.
 
+## Documentation
+
+Docs made using swagger-docs you will find in '/api-docs/' URL before started the project 
+
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install.
