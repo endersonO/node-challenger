@@ -7,6 +7,7 @@ const dataUser = {
 };
 
 beforeAll(async () => {
+  await models.MovieCharacter.destroy({ where: {}, force: true });
   await models.User.destroy({ where: {}, force: true });
   await models.Movie.destroy({ where: {}, force: true });
   await models.Genre.destroy({ where: {}, force: true });

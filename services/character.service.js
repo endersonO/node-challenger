@@ -69,18 +69,47 @@ class CharacterServices {
         delete data.movies;
         const newCharacter = await models.Character.create(data);
 
-        //const id = newCharacter.dataValues.id
         await this.addMovie(movies, newCharacter.dataValues.id);
         delete newCharacter.dataValues.createdAt;
         return newCharacter;
     }
 
     async addMovie(movies, id){
-        await models.MovieCharacter.create({
-            movieId: movies[0],
-            characterId: id
+        let movieData
+        movies.map(async function(movie) {
+            movieData = await models.MovieCharacter.findAll({
+                where: {
+                    movieId: movie,
+                    characterId: id
+                }
+            })
+            if(movieData.length == 0){
+                await models.MovieCharacter.create({
+                    movieId: movie,
+                    characterId: id
+                })
+            }
+        })
+
+        const moviesCharacter = await models.MovieCharacter.findAll({where: {characterId: id}})
+        let movieList = []
+        moviesCharacter.map(function (movie) {
+            movieList.push(movie.dataValues.movieId)
+        })
+        const movieDifferent = movieList.filter(x => !movies.includes(x))
+        console.log(movieDifferent)
+        movieDifferent.map(async function(movie) {
+            const CM = await models.MovieCharacter.findOne({
+                where: {
+                    movieId: movie,
+                    characterId: id
+                }
+            })
+            console.log(CM)
+            await CM.destroy()
         })
     }
+
 
     async update(id, changes){
         const movies = changes.movies;
@@ -98,12 +127,29 @@ class CharacterServices {
     }
 
     async delete(id){
-        const character = await models.Character.findByPk(id);
+        let character = await models.Character.findByPk(id);
 
         if(!character){
             throw boom.notFound("Character not found");
         }
 
+        const characterMovies = await models.MovieCharacter.findAll({
+            where: {
+                characterId: id
+            }
+        });
+
+        let movies = []
+        characterMovies.map(function(cm){
+            movies.push(cm.dataValues.id)
+        })
+
+        movies.map(async function(m){
+            const CM = await models.MovieCharacter.findByPk(m);
+            await CM.destroy()
+        })
+
+        character = await models.Character.findByPk(id);
         await character.destroy();
         return { id };
     }

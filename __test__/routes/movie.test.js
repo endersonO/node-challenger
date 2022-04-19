@@ -14,6 +14,7 @@ const dataGenre = {
 
 let movieId;
 beforeAll(async () => {
+  await models.MovieCharacter.destroy({ where: {}, force: true });
   await models.User.destroy({ where: {}, force: true });
   await models.Movie.destroy({ where: {}, force: true });
   await models.Genre.destroy({ where: {}, force: true });
@@ -29,6 +30,8 @@ describe("Movie test", () => {
     title: "Toy story",
     image: "https://placeimg.com/640/480/people",
     ratings: 4,
+    movieSerie: "movie",
+	  createdDate: "2022-10-01T04:00:00.000Z"
     /* genreId: genre.body.id, */
   };
 
@@ -46,7 +49,7 @@ describe("Movie test", () => {
 
     expect(res.status).toBe(400);
     expect(res.body.message).toBe(
-      '"title" is required. "image" is required. "ratings" is required. "genreId" is required'
+      '"title" is required. "image" is required. "ratings" is required. "genreId" is required. "movieSerie" is required. "createdDate" is required'
     );
   });
 
@@ -70,6 +73,8 @@ describe("Movie test", () => {
       image: dataMovie.image,
       ratings: dataMovie.ratings,
       genreId: dataMovie.genreId,
+      movieSerie: dataMovie.movieSerie,
+      createdDate: dataMovie.createdDate
     });
     movieId = res.body.id;
 
@@ -80,7 +85,9 @@ describe("Movie test", () => {
         title: "Mulan",
         image: "https://placeimg.com/640/640/people",
         ratings: 4,
-        genreId: genre.body.id
+        genreId: genre.body.id,
+        movieSerie: "movie",
+        createdDate: "2022-10-01T04:00:00.000Z"
       });
 
     expect(res2.status).toBe(201);
@@ -94,11 +101,9 @@ describe("Movie test", () => {
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(2);
     expect(res.body[0]).toStrictEqual({
-      id: expect.any(Number),
       title: dataMovie.title.toLowerCase(),
       image: dataMovie.image,
-      ratings: dataMovie.ratings,
-      genreId: dataMovie.genreId,
+      createdDate: dataMovie.createdDate
     });
   });
 
@@ -114,6 +119,10 @@ describe("Movie test", () => {
       image: dataMovie.image,
       ratings: dataMovie.ratings,
       genreId: dataMovie.genreId,
+      characters: expect.any(Array),
+      genre: expect.any(Object),
+      createdDate: dataMovie.createdDate,
+      movieSerie: dataMovie.movieSerie
     });
   });
 
@@ -132,6 +141,8 @@ describe("Movie test", () => {
       image: dataMovie.image,
       ratings: 5,
       genreId: dataMovie.genreId,
+      movieSerie: dataMovie.movieSerie,
+      createdDate: dataMovie.createdDate
     });
   });
 
