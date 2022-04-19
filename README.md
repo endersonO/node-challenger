@@ -1,10 +1,10 @@
-# Node Challenger
+# Node Challenge
 
-This Is a Challenger Based in Disney library.
+This Is a Challenge Based in Disney library.
 
 ## Environments
 
-this project run with next environments:
+This project runs with next environments:
 ```
 PORT=3000
 DATABASE_URL='postgres://postgres:root@localhost:5432/disney'
@@ -18,15 +18,15 @@ SENDGRID_EMAIL=
 ```
 
 Where do you defined:
- - port of you server by default in por 3000.
-- DATABASE_URL you postgres database you defined in local you dev database or when you deploy you use this environment to set production database
+ - Port of you server by default in port 3000.
+- DATABASE_URL your postgres database where, you defined in local your dev database or when you deploy you use this environment to set production database
 - JWT_SECRET this is required to sign web token and security parameters
-- DATABASE_URL_TEST your test database this must to be different because when test it is running database is completing eraser 
-- SENDGRID environments you need to put your sendgrid account information
+- DATABASE_URL_TEST your test database, this must to be different because when test it is running database is completing eraser 
+- SENDGRID environments, you need to put your sendgrid account information
 
 ## Database 
 
-This project bring you docker file to build postgres database including Pgadmin to connect, if you have postgress database ready you don't need to build it if you need to build.
+This project brings you a docker file to build postgres database including Pgadmin to connect, if you already have a postgress database, you don't need to build it.
 
 ## Installation
 
